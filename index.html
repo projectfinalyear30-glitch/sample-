@@ -22,9 +22,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; overflow-x: hidden; }
-
   body {
     font-family: 'Cormorant Garamond', serif;
     background: var(--cream);
@@ -87,22 +85,15 @@
   }
   .curtain-left::after { right: 0; }
   .curtain-right::after { left: 0; }
-
-  /* Curtain fold texture */
   .curtain-left::before {
     content: '';
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(
-      90deg,
-      transparent 0px,
-      transparent 40px,
-      rgba(0,0,0,0.06) 40px,
-      rgba(0,0,0,0.06) 42px,
-      transparent 42px,
-      transparent 80px,
-      rgba(255,255,255,0.04) 80px,
-      rgba(255,255,255,0.04) 82px
+      90deg, transparent 0px, transparent 40px,
+      rgba(0,0,0,0.06) 40px, rgba(0,0,0,0.06) 42px,
+      transparent 42px, transparent 80px,
+      rgba(255,255,255,0.04) 80px, rgba(255,255,255,0.04) 82px
     );
   }
   .curtain-right::before {
@@ -110,22 +101,16 @@
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(
-      90deg,
-      transparent 0px,
-      transparent 40px,
-      rgba(0,0,0,0.06) 40px,
-      rgba(0,0,0,0.06) 42px,
-      transparent 42px,
-      transparent 80px,
-      rgba(255,255,255,0.04) 80px,
-      rgba(255,255,255,0.04) 82px
+      90deg, transparent 0px, transparent 40px,
+      rgba(0,0,0,0.06) 40px, rgba(0,0,0,0.06) 42px,
+      transparent 42px, transparent 80px,
+      rgba(255,255,255,0.04) 80px, rgba(255,255,255,0.04) 82px
     );
   }
 
   #hero.opened .curtain-left { transform: translateX(-100%); }
   #hero.opened .curtain-right { transform: translateX(100%); }
 
-  /* Curtain gold border */
   .curtain-left .edge, .curtain-right .edge {
     position: absolute;
     top: 0; bottom: 0;
@@ -135,7 +120,6 @@
   .curtain-left .edge { right: 0; }
   .curtain-right .edge { left: 0; }
 
-  /* Tap hint */
   #tapHint {
     position: absolute;
     bottom: 60px;
@@ -155,7 +139,6 @@
   @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
   @keyframes pulse { 0%,100% { opacity: 0.7; } 50% { opacity: 1; } }
 
-  /* Curtain label */
   .curtain-text {
     position: absolute;
     top: 50%;
@@ -183,7 +166,6 @@
     overflow: hidden;
   }
 
-  /* Mosque silhouette SVG bg */
   .mosque-bg {
     position: absolute;
     bottom: 0;
@@ -195,13 +177,11 @@
     pointer-events: none;
   }
 
-  /* Islamic geo pattern */
   .geo-pattern {
     position: absolute;
     inset: 0;
     opacity: 0.04;
-    background-image:
-      repeating-conic-gradient(var(--gold) 0% 25%, transparent 0% 50%) 0 0 / 40px 40px;
+    background-image: repeating-conic-gradient(var(--gold) 0% 25%, transparent 0% 50%) 0 0 / 40px 40px;
     pointer-events: none;
   }
 
@@ -222,39 +202,132 @@
     letter-spacing: 8px;
     color: var(--gold);
     text-transform: uppercase;
-    margin-bottom: 36px;
+    margin-bottom: 30px;
     opacity: 0.85;
   }
 
-  /* Heart with initials */
+  /* =====================================================
+     UPGRADED HEART — Larger, Ornate, Islamic-inspired
+  ===================================================== */
   .heart-container {
     position: relative;
-    width: clamp(140px, 25vw, 200px);
-    height: clamp(140px, 25vw, 200px);
-    margin: 0 auto 36px;
-    animation: heartGlow 3s ease-in-out infinite;
+    width: clamp(240px, 42vw, 320px);
+    height: clamp(240px, 42vw, 320px);
+    margin: 0 auto 28px;
   }
-  @keyframes heartGlow {
-    0%,100% { filter: drop-shadow(0 0 15px rgba(201,168,76,0.3)); }
-    50% { filter: drop-shadow(0 0 35px rgba(201,168,76,0.6)); }
-  }
-  .heart-svg { width: 100%; height: 100%; }
 
-  .initials-text {
+  /* Outer slow-spin ring */
+  .heart-ring-outer {
     position: absolute;
     inset: 0;
+    border-radius: 50%;
+    animation: spinSlow 18s linear infinite;
+    transform-origin: center;
+  }
+
+  /* Inner counter-spin ring */
+  .heart-ring-inner {
+    position: absolute;
+    inset: 12%;
+    border-radius: 50%;
+    animation: spinSlow 12s linear infinite reverse;
+    transform-origin: center;
+  }
+
+  @keyframes spinSlow { to { transform: rotate(360deg); } }
+
+  /* Pulsing aura behind the heart */
+  .heart-aura {
+    position: absolute;
+    inset: 18%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.18) 0%, rgba(139,26,46,0.35) 50%, transparent 75%);
+    animation: auraPulse 3s ease-in-out infinite;
+  }
+  @keyframes auraPulse {
+    0%,100% { transform: scale(0.92); opacity: 0.6; }
+    50%       { transform: scale(1.08); opacity: 1; }
+  }
+
+  /* The SVG heart itself */
+  .heart-svg-wrap {
+    position: absolute;
+    inset: 20%;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    filter: drop-shadow(0 0 18px rgba(201,168,76,0.55)) drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+    animation: heartPulse 2.8s ease-in-out infinite;
+  }
+  @keyframes heartPulse {
+    0%,100% { transform: scale(1);    filter: drop-shadow(0 0 18px rgba(201,168,76,0.45)); }
+    50%      { transform: scale(1.06); filter: drop-shadow(0 0 36px rgba(201,168,76,0.8)) drop-shadow(0 0 60px rgba(201,168,76,0.3)); }
+  }
+
+  /* Initials overlay */
+  .initials-text {
+    position: absolute;
+    inset: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
     font-family: 'Cinzel', serif;
-    font-size: clamp(22px, 5vw, 38px);
+    font-size: clamp(24px, 6vw, 44px);
     font-weight: 600;
     color: var(--gold-light);
     letter-spacing: 2px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5), 0 0 20px rgba(201,168,76,0.4);
+    pointer-events: none;
+    animation: initialsGlow 2.8s ease-in-out infinite;
   }
-  .initials-amp { font-size: 0.6em; color: var(--gold); margin: 0 2px; }
+  @keyframes initialsGlow {
+    0%,100% { text-shadow: 0 2px 10px rgba(0,0,0,0.5), 0 0 20px rgba(201,168,76,0.3); }
+    50%      { text-shadow: 0 2px 10px rgba(0,0,0,0.5), 0 0 40px rgba(201,168,76,0.8), 0 0 80px rgba(201,168,76,0.2); }
+  }
+  .initials-amp { font-size: 0.55em; color: var(--gold); margin: 0 2px; opacity: 0.85; }
+
+  /* Orbiting diamond gems */
+  .orbit-gems {
+    position: absolute;
+    inset: 4%;
+    animation: spinSlow 8s linear infinite;
+  }
+  .gem {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background: var(--gold-light);
+    transform: rotate(45deg);
+    box-shadow: 0 0 8px rgba(226,201,126,0.8);
+  }
+  .gem:nth-child(1) { top: 0;    left: 50%; transform: translateX(-50%) rotate(45deg); }
+  .gem:nth-child(2) { right: 0;  top: 50%;  transform: translateY(-50%) rotate(45deg); }
+  .gem:nth-child(3) { bottom: 0; left: 50%; transform: translateX(-50%) rotate(45deg); }
+  .gem:nth-child(4) { left: 0;   top: 50%;  transform: translateY(-50%) rotate(45deg); }
+
+  /* Smaller secondary gems */
+  .orbit-gems-2 {
+    position: absolute;
+    inset: 2%;
+    animation: spinSlow 14s linear infinite reverse;
+  }
+  .gem2 {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--gold-pale);
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(240,228,190,0.9);
+  }
+  .gem2:nth-child(1) { top: 10%;  left: 50%;  transform: translateX(-50%); }
+  .gem2:nth-child(2) { top: 50%;  right: 8%;  transform: translateY(-50%); }
+  .gem2:nth-child(3) { bottom: 9%; left: 50%; transform: translateX(-50%); }
+  .gem2:nth-child(4) { top: 50%;  left: 8%;   transform: translateY(-50%); }
+  .gem2:nth-child(5) { top: 22%;  right: 15%; }
+  .gem2:nth-child(6) { bottom: 20%; right: 14%; }
+  .gem2:nth-child(7) { bottom: 20%; left: 14%; }
+  .gem2:nth-child(8) { top: 22%;  left: 15%; }
 
   .hero-title {
     font-family: 'Cinzel', serif;
@@ -273,19 +346,17 @@
     opacity: 0.8;
   }
 
-  /* Gold divider */
   .gold-divider {
     display: flex;
     align-items: center;
     gap: 16px;
-    margin: 20px auto;
+    margin: 16px auto;
     width: fit-content;
   }
   .gold-divider .line { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
   .gold-divider .line.r { background: linear-gradient(90deg, var(--gold), transparent); }
   .gold-divider .diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
 
-  /* Crescent on curtains */
   .crescent {
     position: absolute;
     top: 50%;
@@ -297,10 +368,7 @@
   }
 
   /* ========== SECTION BASE ========== */
-  section {
-    position: relative;
-    overflow: hidden;
-  }
+  section { position: relative; overflow: hidden; }
 
   /* ========== PAGE 2 — INVITATION TEXT ========== */
   #invitation {
@@ -311,13 +379,7 @@
     justify-content: center;
     padding: 80px 24px;
   }
-
-  .inv-inner {
-    max-width: 720px;
-    text-align: center;
-    position: relative;
-  }
-
+  .inv-inner { max-width: 720px; text-align: center; position: relative; }
   .bismillah {
     font-family: 'Cinzel', serif;
     font-size: clamp(13px, 2.5vw, 16px);
@@ -326,15 +388,7 @@
     text-transform: uppercase;
     margin-bottom: 50px;
   }
-
-  /* Islamic star ornament */
-  .star-ornament {
-    width: 50px;
-    height: 50px;
-    margin: 0 auto 40px;
-    opacity: 0.5;
-  }
-
+  .star-ornament { width: 50px; height: 50px; margin: 0 auto 40px; opacity: 0.5; }
   .inv-text {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(17px, 3vw, 23px);
@@ -351,8 +405,6 @@
     font-size: 1.1em;
     margin-bottom: 8px;
   }
-
-  /* Light pattern overlay for sections */
   .section-pattern {
     position: absolute;
     inset: 0;
@@ -361,8 +413,6 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 5 L35 20 L50 20 L38 29 L43 44 L30 35 L17 44 L22 29 L10 20 L25 20 Z' fill='%238B1A2E'/%3E%3C/svg%3E");
     background-size: 60px 60px;
   }
-
-  /* Fade-in scroll animation */
   .fade-up {
     opacity: 0;
     transform: translateY(30px);
@@ -384,21 +434,9 @@
     padding: 80px 24px;
     position: relative;
   }
-
   #couple .geo-pattern { opacity: 0.05; }
-
   .couple-inner { text-align: center; position: relative; z-index: 2; }
-
-  .couple-label {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 8px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 60px;
-    opacity: 0.8;
-  }
-
+  .couple-label { font-family:'Cinzel',serif; font-size:11px; letter-spacing:8px; color:var(--gold); text-transform:uppercase; margin-bottom:60px; opacity:0.8; }
   .couple-name {
     font-family: 'Cinzel', serif;
     font-size: clamp(28px, 7vw, 68px);
@@ -412,7 +450,6 @@
     0%,100% { text-shadow: 0 0 20px rgba(201,168,76,0.2); }
     50% { text-shadow: 0 0 40px rgba(201,168,76,0.5), 0 2px 4px rgba(0,0,0,0.3); }
   }
-
   .couple-and {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
@@ -424,13 +461,7 @@
     justify-content: center;
     gap: 20px;
   }
-  .couple-and::before, .couple-and::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold));
-  }
+  .couple-and::before, .couple-and::after { content:''; display:block; width:80px; height:1px; background:linear-gradient(90deg,transparent,var(--gold)); }
   .couple-and::after { background: linear-gradient(90deg, var(--gold), transparent); }
 
   /* ========== PAGE 4 — SCRATCH REVEAL ========== */
@@ -444,136 +475,36 @@
     padding: 80px 24px;
     position: relative;
   }
-
-  .scratch-title {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(22px, 5vw, 38px);
-    color: var(--rose);
-    letter-spacing: 2px;
-    text-align: center;
-    margin-bottom: 12px;
-  }
-
-  .scratch-subtitle {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: clamp(16px, 3vw, 21px);
-    color: #5A2030;
-    text-align: center;
-    max-width: 500px;
-    line-height: 1.7;
-    margin-bottom: 16px;
-  }
-
-  .event-label {
-    font-family: 'Cinzel', serif;
-    font-size: 13px;
-    letter-spacing: 5px;
-    color: var(--gold);
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 56px;
-  }
-
-  .scratch-cards {
-    display: flex;
-    gap: clamp(16px, 3vw, 32px);
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 48px;
-  }
-
-  .scratch-card-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .scratch-card-label {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 4px;
-    color: var(--rose);
-    text-transform: uppercase;
-    opacity: 0.7;
-  }
-
+  .scratch-title { font-family:'Cinzel',serif; font-size:clamp(22px,5vw,38px); color:var(--rose); letter-spacing:2px; text-align:center; margin-bottom:12px; }
+  .scratch-subtitle { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(16px,3vw,21px); color:#5A2030; text-align:center; max-width:500px; line-height:1.7; margin-bottom:16px; }
+  .event-label { font-family:'Cinzel',serif; font-size:13px; letter-spacing:5px; color:var(--gold); text-transform:uppercase; text-align:center; margin-bottom:56px; }
+  .scratch-cards { display:flex; gap:clamp(16px,3vw,32px); justify-content:center; flex-wrap:wrap; margin-bottom:48px; }
+  .scratch-card-wrap { display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .scratch-card-label { font-family:'Cinzel',serif; font-size:10px; letter-spacing:4px; color:var(--rose); text-transform:uppercase; opacity:0.7; }
   .scratch-card {
     position: relative;
-    width: clamp(100px, 22vw, 140px);
-    height: clamp(100px, 22vw, 140px);
+    width: clamp(100px,22vw,140px);
+    height: clamp(100px,22vw,140px);
     border-radius: 50%;
     overflow: hidden;
     cursor: crosshair;
     box-shadow: 0 8px 40px rgba(139,26,46,0.15), 0 0 0 3px var(--gold-pale);
     border: 2px solid var(--gold);
   }
-
-  .scratch-revealed {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, var(--cream-dark), var(--cream));
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(11px, 2.5vw, 15px);
-    color: var(--rose-dark);
-    text-align: center;
-    font-style: italic;
-    padding: 12px;
-    line-height: 1.4;
-  }
-
-  .scratch-canvas {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    touch-action: none;
-  }
-
-  /* Petal animation */
-  .petal {
-    position: fixed;
-    top: -30px;
-    pointer-events: none;
-    z-index: 9000;
-    animation: petalFall linear forwards;
-    font-size: 20px;
-    opacity: 0.85;
-  }
+  .scratch-revealed { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--cream-dark),var(--cream)); font-family:'Playfair Display',serif; font-size:clamp(11px,2.5vw,15px); color:var(--rose-dark); text-align:center; font-style:italic; padding:12px; line-height:1.4; }
+  .scratch-canvas { position:absolute; inset:0; border-radius:50%; touch-action:none; }
+  .petal { position:fixed; top:-30px; pointer-events:none; z-index:9000; animation:petalFall linear forwards; font-size:20px; opacity:0.85; }
   @keyframes petalFall {
-    0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.9; }
-    25% { transform: translateY(25vh) rotate(90deg) translateX(20px); }
-    50% { transform: translateY(50vh) rotate(180deg) translateX(-15px); }
-    75% { transform: translateY(75vh) rotate(270deg) translateX(25px); }
-    100% { transform: translateY(110vh) rotate(360deg) translateX(-10px); opacity: 0; }
+    0% { transform:translateY(0) rotate(0deg) translateX(0); opacity:0.9; }
+    25% { transform:translateY(25vh) rotate(90deg) translateX(20px); }
+    50% { transform:translateY(50vh) rotate(180deg) translateX(-15px); }
+    75% { transform:translateY(75vh) rotate(270deg) translateX(25px); }
+    100% { transform:translateY(110vh) rotate(360deg) translateX(-10px); opacity:0; }
   }
-
-  /* After scratch reveal */
-  .after-scratch {
-    text-align: center;
-    opacity: 0;
-    transition: opacity 1s ease;
-    pointer-events: none;
-  }
-  .after-scratch.show { opacity: 1; pointer-events: all; }
-
-  .time-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(18px, 4vw, 28px);
-    color: var(--rose);
-    font-style: italic;
-    margin-bottom: 8px;
-  }
-
-  .venue-text {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(13px, 2.5vw, 17px);
-    color: var(--text-dark);
-    letter-spacing: 3px;
-  }
+  .after-scratch { text-align:center; opacity:0; transition:opacity 1s ease; pointer-events:none; }
+  .after-scratch.show { opacity:1; pointer-events:all; }
+  .time-text { font-family:'Cormorant Garamond',serif; font-size:clamp(18px,4vw,28px); color:var(--rose); font-style:italic; margin-bottom:8px; }
+  .venue-text { font-family:'Cinzel',serif; font-size:clamp(13px,2.5vw,17px); color:var(--text-dark); letter-spacing:3px; }
 
   /* ========== PAGE 5 — COUNTDOWN ========== */
   #countdown-section {
@@ -586,173 +517,54 @@
     padding: 80px 24px;
     position: relative;
   }
-
-  .countdown-label {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 8px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 60px;
-    opacity: 0.8;
-  }
-
-  .countdown-grid {
-    display: flex;
-    gap: clamp(16px, 4vw, 48px);
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 60px;
-  }
-
-  .cd-unit {
-    text-align: center;
-    position: relative;
-  }
-
-  .cd-num {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(40px, 10vw, 80px);
-    font-weight: 600;
-    color: var(--cream);
-    line-height: 1;
-    display: block;
-    animation: cdGlow 2s ease-in-out infinite;
-  }
-  @keyframes cdGlow {
-    0%,100% { text-shadow: 0 0 10px rgba(201,168,76,0.2); }
-    50% { text-shadow: 0 0 30px rgba(201,168,76,0.5); }
-  }
-
-  .cd-label {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(11px, 2vw, 14px);
-    letter-spacing: 4px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-top: 10px;
-    opacity: 0.7;
-  }
-
-  .cd-sep {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(30px, 7vw, 60px);
-    color: var(--gold);
-    opacity: 0.3;
-    align-self: flex-start;
-    margin-top: 8px;
-    line-height: 1.3;
-  }
-
-  .dua-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: clamp(16px, 3vw, 21px);
-    color: var(--gold-pale);
-    text-align: center;
-    max-width: 580px;
-    line-height: 1.9;
-    opacity: 0.85;
-    border-top: 1px solid rgba(201,168,76,0.25);
-    border-bottom: 1px solid rgba(201,168,76,0.25);
-    padding: 28px 0;
-  }
+  .countdown-label { font-family:'Cinzel',serif; font-size:11px; letter-spacing:8px; color:var(--gold); text-transform:uppercase; margin-bottom:60px; opacity:0.8; }
+  .countdown-grid { display:flex; gap:clamp(16px,4vw,48px); justify-content:center; flex-wrap:wrap; margin-bottom:60px; }
+  .cd-unit { text-align:center; position:relative; }
+  .cd-num { font-family:'Cinzel',serif; font-size:clamp(40px,10vw,80px); font-weight:600; color:var(--cream); line-height:1; display:block; animation:cdGlow 2s ease-in-out infinite; }
+  @keyframes cdGlow { 0%,100%{text-shadow:0 0 10px rgba(201,168,76,0.2);} 50%{text-shadow:0 0 30px rgba(201,168,76,0.5);} }
+  .cd-label { font-family:'Cormorant Garamond',serif; font-size:clamp(11px,2vw,14px); letter-spacing:4px; color:var(--gold); text-transform:uppercase; margin-top:10px; opacity:0.7; }
+  .cd-sep { font-family:'Cinzel',serif; font-size:clamp(30px,7vw,60px); color:var(--gold); opacity:0.3; align-self:flex-start; margin-top:8px; line-height:1.3; }
+  .dua-text { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(16px,3vw,21px); color:var(--gold-pale); text-align:center; max-width:580px; line-height:1.9; opacity:0.85; border-top:1px solid rgba(201,168,76,0.25); border-bottom:1px solid rgba(201,168,76,0.25); padding:28px 0; }
 
   /* ========== PAGE 6 — FINAL ========== */
-  #final {
-    min-height: 100vh;
-    background: var(--cream);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 80px 24px;
-    position: relative;
-    text-align: center;
-  }
+  #final { min-height:100vh; background:var(--cream); display:flex; align-items:center; justify-content:center; flex-direction:column; padding:80px 24px; position:relative; text-align:center; }
+  .final-names { font-family:'Cinzel',serif; font-size:clamp(20px,5vw,42px); font-weight:500; color:var(--rose); letter-spacing:2px; margin-bottom:20px; }
+  .final-date { font-family:'Cormorant Garamond',serif; font-size:clamp(14px,3vw,20px); color:var(--gold); letter-spacing:4px; margin-bottom:40px; }
+  .final-blessing { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(15px,2.8vw,20px); color:#3A1020; line-height:1.9; max-width:600px; margin-bottom:60px; opacity:0.85; }
+  .final-footer { font-family:'Cinzel',serif; font-size:10px; letter-spacing:5px; color:var(--gold); text-transform:uppercase; opacity:0.5; }
+  .final-heart { font-size:28px; margin:20px 0; animation:heartBeat 1.5s ease-in-out infinite; }
+  @keyframes heartBeat { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
 
-  .final-names {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(20px, 5vw, 42px);
-    font-weight: 500;
-    color: var(--rose);
-    letter-spacing: 2px;
-    margin-bottom: 20px;
-  }
-
-  .final-date {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(14px, 3vw, 20px);
-    color: var(--gold);
-    letter-spacing: 4px;
-    margin-bottom: 40px;
-  }
-
-  .final-blessing {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: clamp(15px, 2.8vw, 20px);
-    color: #3A1020;
-    line-height: 1.9;
-    max-width: 600px;
-    margin-bottom: 60px;
-    opacity: 0.85;
-  }
-
-  .final-footer {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 5px;
-    color: var(--gold);
-    text-transform: uppercase;
-    opacity: 0.5;
-  }
-
-  .final-heart { font-size: 28px; margin: 20px 0; animation: heartBeat 1.5s ease-in-out infinite; }
-  @keyframes heartBeat {
-    0%,100% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-  }
-
-  /* ========== RESPONSIVE ========== */
   @media (max-width: 500px) {
     .scratch-cards { gap: 12px; }
     .cd-sep { display: none; }
+    .heart-container { width: clamp(210px, 72vw, 280px); height: clamp(210px, 72vw, 280px); }
   }
 </style>
 </head>
 <body>
 
-<!-- Audio -->
 <audio id="bgAudio" loop>
   <source src="Wedding music1.mp4" type="audio/mp4">
 </audio>
-<button id="audioBtn" title="Toggle Music" aria-label="Toggle music">
-  🔇
-</button>
+<button id="audioBtn" title="Toggle Music" aria-label="Toggle music">🔇</button>
 
 <!-- ======= PAGE 1: CURTAIN HERO ======= -->
 <section id="hero">
-  <!-- Reveal bg -->
   <div id="heroReveal">
     <div class="geo-pattern"></div>
-    <!-- Mosque silhouette -->
     <svg class="mosque-bg" viewBox="0 0 900 400" fill="none" xmlns="http://www.w3.org/2000/svg">
       <ellipse cx="450" cy="390" rx="440" ry="25" fill="#FAF6F0"/>
-      <!-- Main dome -->
       <path d="M350 390 Q350 260 450 220 Q550 260 550 390Z" fill="#FAF6F0"/>
       <rect x="355" y="350" width="190" height="40" fill="#FAF6F0"/>
-      <!-- Side domes -->
       <path d="M230 390 Q230 310 280 290 Q330 310 330 390Z" fill="#FAF6F0"/>
       <rect x="235" y="360" width="90" height="30" fill="#FAF6F0"/>
       <path d="M570 390 Q570 310 620 290 Q670 310 670 390Z" fill="#FAF6F0"/>
       <rect x="575" y="360" width="90" height="30" fill="#FAF6F0"/>
-      <!-- Minarets -->
       <rect x="140" y="200" width="22" height="190" fill="#FAF6F0"/>
       <path d="M140 200 Q151 150 162 200Z" fill="#FAF6F0"/>
       <rect x="738" y="200" width="22" height="190" fill="#FAF6F0"/>
       <path d="M738 200 Q749 150 760 200Z" fill="#FAF6F0"/>
-      <!-- Small minarets -->
       <rect x="330" y="260" width="14" height="130" fill="#FAF6F0"/>
       <path d="M330 260 Q337 230 344 260Z" fill="#FAF6F0"/>
       <rect x="556" y="260" width="14" height="130" fill="#FAF6F0"/>
@@ -762,32 +574,160 @@
     <div class="hero-content">
       <div class="hero-label fade-up">✦ Valima Invitation ✦</div>
 
-      <!-- Heart -->
+      <!-- ===== UPGRADED HEART ===== -->
       <div class="heart-container fade-up delay-1">
-        <svg class="heart-svg" viewBox="0 0 200 190" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="heartGrad" cx="50%" cy="40%" r="60%">
-              <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.15"/>
-              <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
-            </radialGradient>
-            <filter id="glow">
-              <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-          </defs>
-          <!-- Elegant heart path -->
-          <path d="M100 175 C60 148, 10 118, 10 72 C10 42, 30 18, 55 18 C72 18, 88 30, 100 46 C112 30, 128 18, 145 18 C170 18, 190 42, 190 72 C190 118, 140 148, 100 175Z"
-            fill="none" stroke="#C9A84C" stroke-width="2.5" filter="url(#glow)"/>
-          <!-- Inner subtle fill -->
-          <path d="M100 175 C60 148, 10 118, 10 72 C10 42, 30 18, 55 18 C72 18, 88 30, 100 46 C112 30, 128 18, 145 18 C170 18, 190 42, 190 72 C190 118, 140 148, 100 175Z"
-            fill="url(#heartGrad)"/>
-          <!-- Corner decorations -->
-          <circle cx="55" cy="30" r="2" fill="#C9A84C" opacity="0.5"/>
-          <circle cx="145" cy="30" r="2" fill="#C9A84C" opacity="0.5"/>
-        </svg>
+
+        <!-- Outermost slow-spin ring: 8-pointed star geometry -->
+        <div class="heart-ring-outer">
+          <svg viewBox="0 0 320 320" width="100%" height="100%">
+            <defs>
+              <linearGradient id="ringGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.8"/>
+                <stop offset="50%" stop-color="#F0E4BE" stop-opacity="0.4"/>
+                <stop offset="100%" stop-color="#C9A84C" stop-opacity="0.8"/>
+              </linearGradient>
+            </defs>
+            <!-- Outer decorative dashed circle -->
+            <circle cx="160" cy="160" r="154" fill="none" stroke="url(#ringGrad1)" stroke-width="1" stroke-dasharray="4 6" opacity="0.6"/>
+            <!-- 8 pointed star petals at perimeter -->
+            <g fill="none" stroke="#C9A84C" stroke-width="0.8" opacity="0.55">
+              <!-- top -->
+              <path d="M160 8 L164 20 L160 16 L156 20 Z"/>
+              <!-- top-right -->
+              <path d="M269 51 L272 63 L266 59 L265 65 Z"/>
+              <!-- right -->
+              <path d="M312 160 L300 164 L304 160 L300 156 Z"/>
+              <!-- bottom-right -->
+              <path d="M269 269 L265 255 L271 259 L272 253 Z"/>
+              <!-- bottom -->
+              <path d="M160 312 L156 300 L160 304 L164 300 Z"/>
+              <!-- bottom-left -->
+              <path d="M51 269 L55 255 L49 259 L48 253 Z"/>
+              <!-- left -->
+              <path d="M8 160 L20 156 L16 160 L20 164 Z"/>
+              <!-- top-left -->
+              <path d="M51 51 L55 63 L49 59 L48 65 Z"/>
+            </g>
+            <!-- 8-pointed star outline at outer ring -->
+            <path d="M160 12 L168 48 L195 28 L182 62 L218 60 L196 85 L230 96 L200 110 L224 130 L190 132 L200 166 L170 152 L160 188 L150 152 L120 166 L130 132 L96 130 L120 110 L90 96 L124 85 L102 60 L138 62 L125 28 L152 48 Z"
+              fill="none" stroke="#C9A84C" stroke-width="0.6" opacity="0.25"/>
+          </svg>
+        </div>
+
+        <!-- Inner counter-spin ring: fine arabesque arcs -->
+        <div class="heart-ring-inner">
+          <svg viewBox="0 0 220 220" width="100%" height="100%">
+            <defs>
+              <linearGradient id="ringGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#E2C97E" stop-opacity="0.9"/>
+                <stop offset="100%" stop-color="#C9A84C" stop-opacity="0.4"/>
+              </linearGradient>
+            </defs>
+            <!-- Solid fine circle -->
+            <circle cx="110" cy="110" r="104" fill="none" stroke="url(#ringGrad2)" stroke-width="1.2" opacity="0.7"/>
+            <!-- Arabesque arc motifs at N/S/E/W -->
+            <g fill="none" stroke="#E2C97E" stroke-width="0.9" opacity="0.6">
+              <path d="M110 8 Q125 30 110 40 Q95 30 110 8Z"/>
+              <path d="M212 110 Q190 95 180 110 Q190 125 212 110Z"/>
+              <path d="M110 212 Q95 190 110 180 Q125 190 110 212Z"/>
+              <path d="M8 110 Q30 125 40 110 Q30 95 8 110Z"/>
+            </g>
+            <!-- Corner diamond dots -->
+            <g fill="#C9A84C" opacity="0.7">
+              <rect x="68" y="9" width="5" height="5" transform="rotate(45 70.5 11.5)"/>
+              <rect x="147" y="9" width="5" height="5" transform="rotate(45 149.5 11.5)"/>
+              <rect x="68" y="206" width="5" height="5" transform="rotate(45 70.5 208.5)"/>
+              <rect x="147" y="206" width="5" height="5" transform="rotate(45 149.5 208.5)"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Pulsing warm aura -->
+        <div class="heart-aura"></div>
+
+        <!-- Main heart SVG (larger, more ornate) -->
+        <div class="heart-svg-wrap">
+          <svg viewBox="0 0 200 190" width="100%" height="100%" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="heartFill" cx="50%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.22"/>
+                <stop offset="60%" stop-color="#8B1A2E" stop-opacity="0.18"/>
+                <stop offset="100%" stop-color="#5C0F1E" stop-opacity="0.05"/>
+              </radialGradient>
+              <filter id="heartGlow" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="5" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+              <!-- Inner shine gradient -->
+              <linearGradient id="heartShine" x1="30%" y1="20%" x2="70%" y2="80%">
+                <stop offset="0%" stop-color="#F0E4BE" stop-opacity="0.5"/>
+                <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Subtle fill -->
+            <path d="M100 175 C60 148, 10 118, 10 72 C10 42, 30 18, 55 18 C72 18, 88 30, 100 46 C112 30, 128 18, 145 18 C170 18, 190 42, 190 72 C190 118, 140 148, 100 175Z"
+              fill="url(#heartFill)"/>
+
+            <!-- Shine overlay -->
+            <path d="M100 175 C60 148, 10 118, 10 72 C10 42, 30 18, 55 18 C72 18, 88 30, 100 46 C112 30, 128 18, 145 18 C170 18, 190 42, 190 72 C190 118, 140 148, 100 175Z"
+              fill="url(#heartShine)"/>
+
+            <!-- Main outline — elegant double stroke effect -->
+            <path d="M100 175 C60 148, 10 118, 10 72 C10 42, 30 18, 55 18 C72 18, 88 30, 100 46 C112 30, 128 18, 145 18 C170 18, 190 42, 190 72 C190 118, 140 148, 100 175Z"
+              stroke="#C9A84C" stroke-width="3" filter="url(#heartGlow)"/>
+
+            <!-- Inner echo heart (slightly smaller) -->
+            <path d="M100 163 C65 138, 22 112, 22 72 C22 46, 40 26, 60 26 C75 26, 90 36, 100 50 C110 36, 125 26, 140 26 C160 26, 178 46, 178 72 C178 112, 135 138, 100 163Z"
+              stroke="#C9A84C" stroke-width="0.8" opacity="0.35"/>
+
+            <!-- Ornamental corner flourishes -->
+            <!-- top-left lobe -->
+            <path d="M55 18 Q42 8 38 18 Q44 14 55 18Z" fill="#C9A84C" opacity="0.5"/>
+            <!-- top-right lobe -->
+            <path d="M145 18 Q158 8 162 18 Q156 14 145 18Z" fill="#C9A84C" opacity="0.5"/>
+            <!-- bottom tip star -->
+            <path d="M100 175 L103 168 L100 171 L97 168 Z" fill="#E2C97E" opacity="0.8"/>
+
+            <!-- Micro arabesque details inside -->
+            <path d="M55 50 Q48 60 55 68 Q60 60 55 50Z" fill="none" stroke="#C9A84C" stroke-width="0.7" opacity="0.4"/>
+            <path d="M145 50 Q152 60 145 68 Q140 60 145 50Z" fill="none" stroke="#C9A84C" stroke-width="0.7" opacity="0.4"/>
+
+            <!-- Gold shimmer dot at center-top -->
+            <circle cx="100" cy="46" r="2.5" fill="#E2C97E" opacity="0.7"/>
+
+            <!-- Tiny stars inside the heart -->
+            <path d="M75 85 L77 91 L83 91 L78 95 L80 101 L75 97 L70 101 L72 95 L67 91 L73 91 Z"
+              fill="none" stroke="#C9A84C" stroke-width="0.6" opacity="0.3"/>
+            <path d="M125 85 L127 91 L133 91 L128 95 L130 101 L125 97 L120 101 L122 95 L117 91 L123 91 Z"
+              fill="none" stroke="#C9A84C" stroke-width="0.6" opacity="0.3"/>
+          </svg>
+        </div>
+
+        <!-- Orbiting diamond gems (fast ring) -->
+        <div class="orbit-gems">
+          <div class="gem"></div>
+          <div class="gem"></div>
+          <div class="gem"></div>
+          <div class="gem"></div>
+        </div>
+
+        <!-- Slow secondary orbit of small dots -->
+        <div class="orbit-gems-2">
+          <div class="gem2"></div>
+          <div class="gem2"></div>
+          <div class="gem2"></div>
+          <div class="gem2"></div>
+          <div class="gem2"></div>
+          <div class="gem2"></div>
+          <div class="gem2"></div>
+          <div class="gem2"></div>
+        </div>
+
+        <!-- Initials overlay -->
         <div class="initials-text">H<span class="initials-amp">&amp;</span>S</div>
       </div>
-
+      <!-- ===== END UPGRADED HEART ===== -->
 
       <div class="gold-divider fade-up delay-2">
         <div class="line"></div><div class="diamond"></div><div class="line r"></div>
@@ -805,13 +745,11 @@
     <div class="curtain-text">Valima 2026</div>
   </div>
 
-  <!-- Crescent on seam -->
   <svg class="crescent" width="60" height="70" viewBox="0 0 60 70" style="z-index:16;">
     <path d="M42 10 Q10 35 42 60 Q5 55 5 35 Q5 15 42 10Z" fill="#E2C97E" opacity="0.4"/>
     <circle cx="52" cy="14" r="4" fill="#E2C97E" opacity="0.35"/>
   </svg>
 
-  <!-- Tap hint -->
   <div id="tapHint">
     <span>✦</span>
     Tap to Open
@@ -823,12 +761,10 @@
   <div class="section-pattern"></div>
   <div class="inv-inner">
     <div class="bismillah fade-up">﷽ Bismillahir Rahmanir Raheem</div>
-
-    <svg class="star-ornament fade-up delay-1" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="star-ornament fade-up delay-1" viewBox="0 0 50 50" fill="none">
       <path d="M25 2 L28 18 L44 18 L31 27 L36 44 L25 35 L14 44 L19 27 L6 18 L22 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.2"/>
       <circle cx="25" cy="25" r="6" fill="none" stroke="#C9A84C" stroke-width="0.8"/>
     </svg>
-
     <div class="inv-text fade-up delay-2">
       <strong>Hosted by the Families of Late Haji M. Abdul Hakeem</strong>
       cordially invite you and solicit your esteemed presence,<br>
@@ -836,7 +772,6 @@
       <em style="color:var(--rose);font-size:1.2em;font-style:italic;display:block;">Valima</em>
       of their beloved grandson.
     </div>
-
     <div class="gold-divider fade-up delay-3" style="margin-top:48px;">
       <div class="line"></div><div class="diamond"></div><div class="line r"></div>
     </div>
@@ -848,19 +783,14 @@
   <div class="geo-pattern"></div>
   <div class="couple-inner">
     <div class="couple-label fade-up">✦ United in Nikkah ✦</div>
-
     <div class="couple-name fade-up delay-1">Harron Hakeem</div>
-
     <div class="couple-and fade-up delay-2">weds</div>
-
     <div class="couple-name fade-up delay-3">Safarin Fathima</div>
-
     <div class="gold-divider fade-up delay-4" style="margin-top:48px;">
       <div class="line" style="background:linear-gradient(90deg,transparent,rgba(201,168,76,0.5))"></div>
       <div class="diamond"></div>
       <div class="line r" style="background:linear-gradient(90deg,rgba(201,168,76,0.5),transparent)"></div>
     </div>
-
     <div style="margin-top:28px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(14px,2.5vw,18px);color:var(--gold-pale);opacity:0.7;" class="fade-up delay-4">
       Two hearts, one path, by the grace of Allah
     </div>
@@ -873,7 +803,6 @@
   <div class="scratch-title fade-up">Reveal the Date</div>
   <div class="scratch-subtitle fade-up delay-1">Join Us · The Celebration<br>You are warmly invited to be part of this blessed occasion</div>
   <div class="event-label fade-up delay-2">🕌 Valima Reception</div>
-
   <div class="scratch-cards fade-up delay-2" id="scratchCards">
     <div class="scratch-card-wrap">
       <div class="scratch-card-label">Day</div>
@@ -897,7 +826,6 @@
       </div>
     </div>
   </div>
-
   <div class="after-scratch" id="afterScratch">
     <div class="time-text">at 1:00 PM onwards 🌹</div>
     <div class="venue-text">Classic Conventional Hall, Mysore</div>
@@ -907,29 +835,15 @@
 <!-- ======= PAGE 5: COUNTDOWN + DUA ======= -->
 <section id="countdown-section">
   <div class="countdown-label fade-up">Time Until the Celebration</div>
-
   <div class="countdown-grid fade-up delay-1">
-    <div class="cd-unit">
-      <span class="cd-num" id="cdDays">00</span>
-      <div class="cd-label">Days</div>
-    </div>
+    <div class="cd-unit"><span class="cd-num" id="cdDays">00</span><div class="cd-label">Days</div></div>
     <div class="cd-sep" style="align-self:center;margin-top:0">:</div>
-    <div class="cd-unit">
-      <span class="cd-num" id="cdHours">00</span>
-      <div class="cd-label">Hours</div>
-    </div>
+    <div class="cd-unit"><span class="cd-num" id="cdHours">00</span><div class="cd-label">Hours</div></div>
     <div class="cd-sep" style="align-self:center;margin-top:0">:</div>
-    <div class="cd-unit">
-      <span class="cd-num" id="cdMins">00</span>
-      <div class="cd-label">Minutes</div>
-    </div>
+    <div class="cd-unit"><span class="cd-num" id="cdMins">00</span><div class="cd-label">Minutes</div></div>
     <div class="cd-sep" style="align-self:center;margin-top:0">:</div>
-    <div class="cd-unit">
-      <span class="cd-num" id="cdSecs">00</span>
-      <div class="cd-label">Seconds</div>
-    </div>
+    <div class="cd-unit"><span class="cd-num" id="cdSecs">00</span><div class="cd-label">Seconds</div></div>
   </div>
-
   <div class="dua-text fade-up delay-2">
     "O Allah, bless their union and grant them happiness<br>
     in this world and the Hereafter."
@@ -939,27 +853,23 @@
 <!-- ======= PAGE 6: FINAL ======= -->
 <section id="final">
   <div class="section-pattern" style="opacity:0.03;"></div>
-
-  <svg class="star-ornament fade-up" style="opacity:0.3;margin-bottom:32px;" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg class="star-ornament fade-up" style="opacity:0.3;margin-bottom:32px;" viewBox="0 0 50 50" fill="none">
     <path d="M25 2 L28 18 L44 18 L31 27 L36 44 L25 35 L14 44 L19 27 L6 18 L22 18 Z" fill="none" stroke="#C9A84C" stroke-width="1.2"/>
   </svg>
-
   <div class="final-names fade-up">Harron Hakeem &amp; Safarin Fathima</div>
   <div class="final-date fade-up delay-1">6 May 2026 · Mysore, Karnataka</div>
-
   <div class="final-heart fade-up delay-2">🤍</div>
-
   <div class="final-blessing fade-up delay-2">
     "May Allah bless you both, and may He unite you in goodness.<br>
     <em>Baarakallahu lakuma wa baaraka alaykuma.</em>"
   </div>
-
   <div class="gold-divider fade-up delay-3">
     <div class="line"></div><div class="diamond"></div><div class="line r"></div>
   </div>
-
-<div class="final-footer fade-up delay-4" style="margin-top:40px;">
-  Crafted with love &amp; prayer · Valima Invitation 2026 &nbsp;|&nbsp; <span style="font-family:'Cinzel',serif;color:var(--gold);letter-spacing:2px;font-size:11px;">&#169; @hisham</span>
+ <div class="final-footer fade-up delay-4" style="margin-top:40px;color:#1A0A0F;font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;font-weight:600;">
+  Crafted with love &amp; prayer · Valima Invitation 2026<br>
+  <br>
+  <span style="font-size:16px;font-weight:700;letter-spacing:2px;">&#169;Hisham ul hakeem · All Rights Reserved</span>
 </div>
 </section>
 
@@ -981,7 +891,6 @@ hero.addEventListener('click', () => {
   }
 });
 
-// Audio toggle
 audioBtn.addEventListener('click', (e) => {
   e.stopPropagation();
   if (audioMuted) {
@@ -998,14 +907,12 @@ audioBtn.addEventListener('click', (e) => {
 // ====== SCROLL FADE IN ======
 const fadeEls = document.querySelectorAll('.fade-up');
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('visible');
-  });
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.15 });
 fadeEls.forEach(el => observer.observe(el));
 
 // ====== SCRATCH CARDS ======
-function initScratch(canvasId, cardIndex) {
+function initScratch(canvasId) {
   const canvas = document.getElementById(canvasId);
   const card = canvas.parentElement;
   const size = card.offsetWidth;
@@ -1013,7 +920,6 @@ function initScratch(canvasId, cardIndex) {
   canvas.height = size;
   const ctx = canvas.getContext('2d');
 
-  // Draw gold scratch surface
   const grad = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
   grad.addColorStop(0, '#C9A84C');
   grad.addColorStop(0.6, '#B8903A');
@@ -1023,7 +929,6 @@ function initScratch(canvasId, cardIndex) {
   ctx.arc(size/2, size/2, size/2, 0, Math.PI * 2);
   ctx.fill();
 
-  // Text on scratch surface
   ctx.fillStyle = 'rgba(255,255,255,0.15)';
   ctx.font = `bold ${size*0.13}px 'Cinzel', serif`;
   ctx.textAlign = 'center';
@@ -1035,7 +940,6 @@ function initScratch(canvasId, cardIndex) {
   ctx.globalCompositeOperation = 'destination-out';
 
   let isDrawing = false;
-  let scratched = 0;
   const total = size * size;
 
   function getPos(e) {
@@ -1043,20 +947,14 @@ function initScratch(canvasId, cardIndex) {
     const scaleX = size / rect.width;
     const scaleY = size / rect.height;
     if (e.touches) {
-      return {
-        x: (e.touches[0].clientX - rect.left) * scaleX,
-        y: (e.touches[0].clientY - rect.top) * scaleY
-      };
+      return { x: (e.touches[0].clientX - rect.left)*scaleX, y: (e.touches[0].clientY - rect.top)*scaleY };
     }
-    return {
-      x: (e.clientX - rect.left) * scaleX,
-      y: (e.clientY - rect.top) * scaleY
-    };
+    return { x: (e.clientX - rect.left)*scaleX, y: (e.clientY - rect.top)*scaleY };
   }
 
   function scratch(pos) {
     ctx.beginPath();
-    ctx.arc(pos.x, pos.y, size * 0.15, 0, Math.PI * 2);
+    ctx.arc(pos.x, pos.y, size*0.15, 0, Math.PI*2);
     ctx.fill();
     checkReveal();
   }
@@ -1067,7 +965,7 @@ function initScratch(canvasId, cardIndex) {
     for (let i = 3; i < imageData.data.length; i += 4) {
       if (imageData.data[i] < 128) transparent++;
     }
-    if (transparent / total > 0.55 && !card.dataset.revealed) {
+    if (transparent/total > 0.55 && !card.dataset.revealed) {
       card.dataset.revealed = '1';
       canvas.style.transition = 'opacity 0.5s';
       canvas.style.opacity = '0';
@@ -1087,17 +985,12 @@ function initScratch(canvasId, cardIndex) {
 let revealedCount = 0;
 function checkAllRevealed() {
   revealedCount++;
-  if (revealedCount >= 3) {
-    showAfterScratch();
-  }
+  if (revealedCount >= 3) showAfterScratch();
 }
-
 function showAfterScratch() {
-  const el = document.getElementById('afterScratch');
-  el.classList.add('show');
+  document.getElementById('afterScratch').classList.add('show');
   spawnPetals();
 }
-
 function spawnPetals() {
   const petals = ['🌹','🌸','🌺','🌷','✿','❀'];
   let count = 0;
@@ -1105,25 +998,24 @@ function spawnPetals() {
     for (let i = 0; i < 3; i++) {
       const petal = document.createElement('div');
       petal.className = 'petal';
-      petal.textContent = petals[Math.floor(Math.random() * petals.length)];
-      petal.style.left = Math.random() * 100 + 'vw';
-      petal.style.fontSize = (14 + Math.random() * 14) + 'px';
-      const dur = 3 + Math.random() * 3;
+      petal.textContent = petals[Math.floor(Math.random()*petals.length)];
+      petal.style.left = Math.random()*100 + 'vw';
+      petal.style.fontSize = (14+Math.random()*14) + 'px';
+      const dur = 3 + Math.random()*3;
       petal.style.animationDuration = dur + 's';
-      petal.style.animationDelay = Math.random() * 0.5 + 's';
+      petal.style.animationDelay = Math.random()*0.5 + 's';
       document.body.appendChild(petal);
-      setTimeout(() => petal.remove(), (dur + 1) * 1000);
+      setTimeout(() => petal.remove(), (dur+1)*1000);
     }
-    count++;
-    if (count > 25) clearInterval(interval);
+    if (++count > 25) clearInterval(interval);
   }, 150);
 }
 
 window.addEventListener('load', () => {
   setTimeout(() => {
-    initScratch('canvas1', 0);
-    initScratch('canvas2', 1);
-    initScratch('canvas3', 2);
+    initScratch('canvas1');
+    initScratch('canvas2');
+    initScratch('canvas3');
   }, 500);
 });
 
@@ -1133,20 +1025,13 @@ function updateCountdown() {
   const now = new Date();
   const diff = target - now;
   if (diff <= 0) {
-    document.getElementById('cdDays').textContent = '00';
-    document.getElementById('cdHours').textContent = '00';
-    document.getElementById('cdMins').textContent = '00';
-    document.getElementById('cdSecs').textContent = '00';
+    ['cdDays','cdHours','cdMins','cdSecs'].forEach(id => document.getElementById(id).textContent = '00');
     return;
   }
-  const d = Math.floor(diff / 86400000);
-  const h = Math.floor((diff % 86400000) / 3600000);
-  const m = Math.floor((diff % 3600000) / 60000);
-  const s = Math.floor((diff % 60000) / 1000);
-  document.getElementById('cdDays').textContent = String(d).padStart(2,'0');
-  document.getElementById('cdHours').textContent = String(h).padStart(2,'0');
-  document.getElementById('cdMins').textContent = String(m).padStart(2,'0');
-  document.getElementById('cdSecs').textContent = String(s).padStart(2,'0');
+  document.getElementById('cdDays').textContent  = String(Math.floor(diff/86400000)).padStart(2,'0');
+  document.getElementById('cdHours').textContent = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
+  document.getElementById('cdMins').textContent  = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+  document.getElementById('cdSecs').textContent  = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
 }
 updateCountdown();
 setInterval(updateCountdown, 1000);
